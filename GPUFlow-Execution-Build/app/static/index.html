@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fc">
+  <meta name="description" content="GPUFlow Local Lab — a private local-network prototype for device messaging and AI workload routing simulation.">
+  <title>GPUFlow — Local Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="GPUFlow home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span class="brand-word">GPU<span>Flow</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <a class="nav-item active" href="#overview"><span class="nav-icon">◫</span> Overview</a>
+        <a class="nav-item" href="#devices"><span class="nav-icon">⌁</span> Device bridge</a>
+        <a class="nav-item" href="#router"><span class="nav-icon">⤳</span> Routing lab</a>
+        <a class="nav-item" href="#activity"><span class="nav-icon">▤</span> Activity</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-note-icon">✳</div>
+        <div class="side-note-title">Local-first testing</div>
+        <p>Keep your first experiments on a trusted Wi-Fi network.</p>
+        <div class="sidebar-version">GPUFLOW LAB <span>v0.1.0</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area" id="overview">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Workspace</span><b>/</b><strong>Overview</strong></div>
+        <div class="topbar-right">
+          <span class="environment-pill"><i></i> LOCAL ENVIRONMENT</span>
+          <div class="avatar">G</div>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> GPUFLOW · PRIVATE LAB</div>
+            <h1>Your AI workload control room<span>.</span></h1>
+            <p class="page-subtitle">A small, local test environment for connecting devices and exploring smarter workload decisions.</p>
+          </div>
+          <div class="heading-actions">
+            <span class="live-indicator" id="connectionPill"><i></i><span id="connectionText">Not connected</span></span>
+            <button class="button button-primary" id="headerConnectBtn" type="button">Connect device <span>↗</span></button>
+          </div>
+        </section>
+
+        <section class="metrics-grid" aria-label="Workspace metrics">
+          <article class="metric-card">
+            <div class="metric-top"><span>Connected devices</span><span class="metric-icon blue">⌁</span></div>
+            <div class="metric-value" id="deviceCount">0<span class="metric-unit"> / room</span></div>
+            <div class="metric-foot"><span class="dot-muted"></span> Live local connections</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>Active room</span><span class="metric-icon violet">▦</span></div>
+            <div class="metric-value metric-room" id="activeRoomMetric">gpuflow-lab</div>
+            <div class="metric-foot"><span class="dot-blue"></span> Shared device channel</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>Routing engine</span><span class="metric-icon green">⤳</span></div>
+            <div class="metric-value metric-status">Simulation</div>
+            <div class="metric-foot"><span class="dot-green"></span> Heuristic demo mode</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>Compute providers</span><span class="metric-icon amber">◈</span></div>
+            <div class="metric-value metric-status">Not linked</div>
+            <div class="metric-foot"><span class="dot-muted"></span> No external AI calls</div>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <div class="column-stack">
+            <article class="panel device-panel" id="devices">
+              <div class="panel-heading">
+                <div>
+                  <div class="section-kicker">REAL-TIME CONNECTION</div>
+                  <h2>Device bridge</h2>
+                  <p>Connect two or more devices through the same Wi-Fi network.</p>
+                </div>
+                <span class="panel-symbol">⌁</span>
+              </div>
+              <div class="form-grid">
+                <label class="field"><span>Room name</span><input id="roomInput" maxlength="32" value="gpuflow-lab" autocomplete="off"></label>
+                <label class="field"><span>Device name</span><input id="nameInput" maxlength="24" placeholder="e.g. My phone" autocomplete="off"></label>
+              </div>
+              <div class="connection-row">
+                <div class="connection-copy"><span class="signal-icon">⌁</span><div><strong id="bridgeStatus">Bridge is idle</strong><small id="bridgeHelp">Use the same room name on both devices.</small></div></div>
+                <button class="button button-dark" id="connectBtn" type="button">Connect <span>→</span></button>
+              </div>
+              <div class="members-header"><span>CONNECTED IN THIS ROOM</span><span id="membersCountLabel">0 devices</span></div>
+              <div class="members-list" id="membersList"><div class="empty-members">No devices connected yet. Connect this device to begin.</div></div>
+              <div class="network-tip"><span>ⓘ</span><p>On your computer, open the local address shown in the launcher. On your phones, use the computer’s IPv4 address and keep all devices on the same Wi-Fi.</p></div>
+            </article>
+
+            <article class="panel router-panel" id="router">
+              <div class="panel-heading">
+                <div>
+                  <div class="section-kicker">EXPERIMENTAL PLAYGROUND</div>
+                  <h2>Workload routing lab</h2>
+                  <p>Try a request and inspect the prototype’s simulated route decision.</p>
+                </div>
+                <span class="simulation-tag">SIMULATION</span>
+              </div>
+              <label class="field prompt-field"><span>Test prompt</span><textarea id="promptInput" maxlength="4000" rows="4" placeholder="Describe a task to test the routing logic…"></textarea><small class="field-foot"><span>Example: Summarize a short paragraph.</span><span id="promptCount">0 / 4000</span></small></label>
+              <div class="router-controls">
+                <label class="field mode-field"><span>Routing preference</span><select id="modeSelect"><option value="auto">Automatic decision</option><option value="light">Lightweight profile</option><option value="balanced">Balanced profile</option><option value="advanced">Advanced profile</option></select></label>
+                <button class="button button-primary route-button" id="routeBtn" type="button">Analyze workload <span>↗</span></button>
+              </div>
+              <div class="route-result" id="routeResult" aria-live="polite">
+                <div class="result-placeholder"><span class="placeholder-icon">✳</span><div><strong>Waiting for a test request</strong><small>Your simulated routing decision will appear here and be shared with devices in this room.</small></div></div>
+              </div>
+              <div class="demo-disclaimer">Prototype only. This version uses simple local heuristics; it does not select a real model, access a GPU, or measure actual compute cost.</div>
+            </article>
+          </div>
+
+          <div class="column-stack right-stack">
+            <article class="panel activity-panel" id="activity">
+              <div class="panel-heading compact-heading">
+                <div><div class="section-kicker">LIVE ROOM FEED</div><h2>Shared activity</h2></div>
+                <span class="activity-live"><i></i> LIVE</span>
+              </div>
+              <div class="feed" id="feed" aria-live="polite"><div class="feed-empty"><span>◷</span><strong>Nothing happening yet</strong><small>Device joins, messages and route tests will show up here.</small></div></div>
+              <form class="chat-form" id="chatForm">
+                <label class="sr-only" for="chatInput">Send a message to connected devices</label>
+                <input id="chatInput" maxlength="1200" placeholder="Send a quick test message…" autocomplete="off">
+                <button type="submit" aria-label="Send message">↑</button>
+              </form>
+              <div class="chat-footnote">Messages are relayed only within this local test room.</div>
+            </article>
+
+            <article class="panel architecture-panel">
+              <div class="section-kicker">PROTOTYPE SCOPE</div>
+              <h2>What this build can do</h2>
+              <div class="scope-list">
+                <div class="scope-item"><span class="scope-check">✓</span><div><strong>Local device bridge</strong><small>Real-time room messaging over your LAN.</small></div></div>
+                <div class="scope-item"><span class="scope-check">✓</span><div><strong>Routing simulation</strong><small>Basic workload profiles and decision notes.</small></div></div>
+                <div class="scope-item"><span class="scope-check">✓</span><div><strong>Live activity feed</strong><small>Shared events across connected devices.</small></div></div>
+                <div class="scope-item scope-pending"><span class="scope-pending-icon">○</span><div><strong>Real model providers</strong><small>Not included in this first test build.</small></div></div>
+              </div>
+              <div class="architecture-footer"><span class="mini-brand-mark">G</span><span>Built for iteration. Designed to grow.</span><span class="version-tag">0.1.0</span></div>
+            </article>
+          </div>
+        </section>
+        <footer class="page-footer"><span>GPUFlow Local Lab</span><span>Private prototype · No cloud account connected</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-card">
+      <div class="auth-brand"><span class="brand-mark"><span></span><span></span><span></span></span><span class="brand-word">GPU<span>Flow</span></span></div>
+      <div class="auth-orb"><span>G</span></div>
+      <div class="auth-eyebrow">PRIVATE TEST BUILD</div>
+      <h2>Welcome to your lab.</h2>
+      <p>This local prototype is password protected. Enter your test password to unlock the workspace.</p>
+      <form id="unlockForm">
+        <label class="field"><span>Access password</span><input id="passwordInput" type="password" autocomplete="current-password" placeholder="Enter password" required></label>
+        <button class="button button-primary auth-submit" type="submit">Unlock GPUFlow <span>→</span></button>
+        <div class="auth-error" id="authError" role="alert"></div>
+      </form>
+      <div class="auth-foot"><span class="lock-icon">▣</span> Local prototype access · v0.1.0</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
